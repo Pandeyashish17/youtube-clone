@@ -74,7 +74,7 @@ const Index = () => {
         </div>
         <div className="collapse-content">
           <p>
-            <p className="m-3">{data?.date}</p>
+            <span className="m-3">{data?.date}</span>
             {data?.description}
           </p>{" "}
         </div>
