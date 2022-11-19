@@ -1,10 +1,11 @@
 import axios from "axios";
-
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 
 export default function Home() {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   // console.log(data);
   const getData = () => {
     const options = {
@@ -16,7 +17,7 @@ export default function Home() {
         "X-RapidAPI-Host": "youtube138.p.rapidapi.com",
       },
     };
-
+    setLoading(true);
     axios
       .request(options)
       .then(function (response) {
@@ -41,6 +42,7 @@ export default function Home() {
             };
           })
         );
+        setLoading(false);
       })
       .catch(function (error) {
         console.error(error);
@@ -53,11 +55,17 @@ export default function Home() {
 
   return (
     <>
-      <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {data?.map((item, i) => {
-          return <Cards data={item} channelName="Mr Beast" key={i} />;
-        })}
-      </div>
+      {loading ? (
+        <div className="grid place-content-center h-[90vh] ">
+          <ClimbingBoxLoader color="#121212" />
+        </div>
+      ) : (
+        <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {data?.map((item, i) => {
+            return <Cards data={item} channelName="Mr Beast" key={i} />;
+          })}
+        </div>
+      )}
     </>
   );
 }

@@ -62,23 +62,17 @@ const Index = () => {
               };
             }),
         });
+        setLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
-    setLoading(false);
   }, [term]);
   return (
     <>
       {loading ? (
         <div className="w-screen flex justify-center items-center">
-          <ClimbingBoxLoader
-            color={"#ffffff"}
-            cssOverride={override}
-            size={150}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <ClimbingBoxLoader color={"#ffffff"} size={150} />
         </div>
       ) : null}
       <div className="flex justify-center items-center flex-col gap-2 mx-5">
@@ -114,9 +108,9 @@ const Index = () => {
           </div>
         </div>
         <div className="flex gap-1 overflow-x-auto">
-          {data?.refinements?.map((item,i) => (
+          {data?.refinements?.map((item, i) => (
             <button
-            key={i}
+              key={i}
               className="bg-[#121212] text-white p-1 rounded-xl"
               onClick={() => router.push(`/searchresult?term=${item}`)}
             >
